@@ -184,6 +184,24 @@ export function reconstructFromRegions(regions) {
 }
 
 /**
+ * Merge candidate word-lists from several OCR passes (e.g. a raw pass and a
+ * glare-flattened pass, which each recover different words) into one list.
+ * Union, then keep only the dominant length — Fallout passwords are all the
+ * same length, so this drops stray mis-length misreads while maximizing recall.
+ */
+export function combineWordLists(lists) {
+  const all = lists.flat();
+  const byLen = new Map();
+  for (const w of all) {
+    if (!byLen.has(w.length)) byLen.set(w.length, []);
+    byLen.get(w.length).push(w);
+  }
+  let best = [];
+  for (const arr of byLen.values()) if (arr.length > best.length) best = arr;
+  return [...new Set(best)];
+}
+
+/**
  * Reconstruct the candidate word list from raw text.
  *
  * Two input shapes are supported:

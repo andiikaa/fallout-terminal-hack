@@ -4,6 +4,7 @@ import { recognizeRegions } from './paddle-ocr.js';
 import {
   extractWords,
   reconstructFromRegions,
+  combineWordLists,
   filterCandidates,
   recommend,
 } from './solver.js';
@@ -48,12 +49,14 @@ async function handleImageFile(input) {
 
   let words = [];
   try {
-    // Primary: PaddleOCR (PP-OCRv6) + geometric layout reconstruction.
-    const regions = await recognizeRegions(file, {
+    // Primary: PaddleOCR + geometric layout reconstruction. Multiple OCR passes
+    // (orientation-corrected, glare-flattened) each recover different words;
+    // union them by dominant length.
+    const { passes } = await recognizeRegions(file, {
       previewCanvas,
       onProgress: setProgress,
     });
-    words = reconstructFromRegions(regions);
+    words = combineWordLists(passes.map(reconstructFromRegions));
   } catch (err) {
     console.warn('PaddleOCR failed, falling back to Tesseract:', err);
     try {
