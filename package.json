@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node test/solver.test.mjs"
+    "test": "node test/solver.test.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "client-side-ocr": "^2.1.0",
@@ -17,6 +18,7 @@
     "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.0",
     "vite": "^8.1.5"
   }
 }

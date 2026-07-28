@@ -43,6 +43,37 @@ jobs:
         with:
           path: dist
 
+  # End-to-end OCR test in a real headless browser. Runs in parallel; it does
+  # NOT gate the deploy (it depends on a runtime model download and WASM OCR, so
+  # it's kept as a signal rather than a release blocker).
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run end-to-end OCR test
+        run: pnpm test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

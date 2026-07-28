@@ -34,7 +34,8 @@ after first load.
 pnpm install
 pnpm dev       # http://localhost:5173
 pnpm build     # production build in dist/
-pnpm test      # regression tests
+pnpm test      # unit / reconstruction regression tests
+pnpm test:e2e  # full OCR pipeline in a headless browser (Playwright)
 ```
 
 Deployed to GitHub Pages automatically on push to `master`
