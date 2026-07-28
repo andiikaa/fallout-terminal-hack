@@ -1,0 +1,4 @@
+# Supply-chain hardening: refuse to install any package version published less
+# than 3 days ago, giving the ecosystem time to spot & yank malicious releases
+# (see the wave of npm account-takeover CVEs). Value is in minutes.
+minimumReleaseAge: 4320

@@ -1,8 +1,12 @@
 # ROBCO Terminal Hack Solver
 
+[![Deploy PWA to GitHub Pages](https://github.com/andiikaa/fallout-terminal-hack/actions/workflows/deploy.yml/badge.svg)](https://github.com/andiikaa/fallout-terminal-hack/actions/workflows/deploy.yml)
+
 A mobile-first PWA that solves Fallout's terminal hacking minigame — snap a
 photo of the terminal, and it reads the candidate words and tells you the
 optimal word to guess.
+
+**Live app:** https://andiikaa.github.io/fallout-terminal-hack/
 
 ## How it works
 
@@ -28,13 +32,13 @@ optimal word to guess.
 ## Run it
 
 ```bash
-npm install
-npm run dev      # http://localhost:5173  (open on your phone via the Network URL)
-npm run build    # production build in dist/
-npm run preview  # preview the build
+pnpm install
+pnpm dev         # http://localhost:5173  (open on your phone via the Network URL)
+pnpm build       # production build in dist/
+pnpm preview     # preview the build
 ```
 
-To use it on your **iPhone 15**, open the Network URL shown by `npm run dev`
+To use it on your **iPhone 15**, open the Network URL shown by `pnpm dev`
 while the phone is on the same Wi-Fi (camera capture needs HTTPS or localhost;
 for full camera on the LAN URL, serve over HTTPS or use a tunnel like
 `cloudflared` / `ngrok`). Then "Add to Home Screen" for the PWA experience.
@@ -49,7 +53,7 @@ for full camera on the LAN URL, serve over HTTPS or use a tunnel like
 - `src/style.css` — CRT/ROBCO green-terminal theme.
 - `vite.config.js` — sets COOP/COEP for cross-origin isolation (multithreaded WASM).
 - `public/` — PWA manifest, icon, service worker.
-- `test/` — regression tests (`npm test`), incl. a real PaddleOCR sample.
+- `test/` — regression tests (`pnpm test`), incl. a real PaddleOCR sample.
 
 ## Privacy & where the models load from
 
