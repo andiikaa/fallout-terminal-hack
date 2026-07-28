@@ -1,6 +1,6 @@
 # ROBCO Terminal Hack Solver
 
-[![Deploy PWA to GitHub Pages](https://github.com/andiikaa/fallout-terminal-hack/actions/workflows/deploy.yml/badge.svg)](https://github.com/andiikaa/fallout-terminal-hack/actions/workflows/deploy.yml)
+[![pipeline](https://github.com/andiikaa/fallout-terminal-hack/actions/workflows/deploy.yml/badge.svg)](https://github.com/andiikaa/fallout-terminal-hack/actions/workflows/deploy.yml)
 
 A mobile-first PWA that solves Fallout's terminal hacking minigame — snap a
 photo of the terminal, and it reads the candidate words and tells you the
