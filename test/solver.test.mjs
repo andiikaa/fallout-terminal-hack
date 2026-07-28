@@ -87,6 +87,28 @@ check('rejoins a word that wraps across the column boundary', () => {
   assert.ok(words.every((w) => w.length === 8), 'all candidates length 8');
 });
 
+console.log('IMG_7886 (real photo: glare + column-wrapped WARRIORS):');
+check('recovers words across raw + glare passes', () => {
+  // Captured PaddleOCR output for test/fixtures/img7886-warriors.jpeg — a
+  // glary, curved-CRT photo. pass[0] = raw upright, pass[1] = glare-flattened.
+  // (The model itself is browser-only, so we regression-test the deterministic
+  //  reconstruction layer against its recorded output.)
+  const { passes } = JSON.parse(
+    readFileSync(new URL('./fixtures/img7886-regions.json', import.meta.url))
+  );
+  const perPass = passes.map(reconstructFromRegions);
+  const merged = combineWordLists(perPass);
+
+  assert.ok(merged.every((w) => w.length === 8), 'all candidates length 8');
+  for (const w of ['PASSKEYS', 'TOMATOES', 'FIERCELY', 'PRODUCED', 'DISLIKES']) {
+    assert.ok(merged.includes(w), `expected ${w} in ${merged.join(',')}`);
+  }
+  // The glare pass recovers DISLIKES, which the raw pass misses — proving the
+  // multi-pass union earns its keep.
+  assert.ok(!perPass[0].includes('DISLIKES'), 'raw pass misses DISLIKES');
+  assert.ok(merged.length > perPass[0].length, 'union beats any single pass');
+});
+
 console.log('combineWordLists:');
 check('unions passes and keeps the dominant length', () => {
   // Raw pass missed DISLIKES; glare pass missed TOMATOES/FIERCELY. A stray
