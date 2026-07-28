@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#020a02"/>
+  <rect x="40" y="40" width="432" height="432" rx="20" fill="none" stroke="#1c9a3f" stroke-width="10"/>
+  <text x="50%" y="46%" text-anchor="middle" font-family="Courier New, monospace"
+    font-size="150" font-weight="bold" fill="#35ff6d">&gt;_</text>
+  <text x="50%" y="70%" text-anchor="middle" font-family="Courier New, monospace"
+    font-size="52" font-weight="bold" fill="#ffb642">HACK</text>
+</svg>
