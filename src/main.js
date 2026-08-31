@@ -187,7 +187,10 @@ feedbackModal.addEventListener('click', (e) => {
 });
 
 // ---- Service worker (offline / cache WASM) ----
-if ('serviceWorker' in navigator) {
+// Production builds only: registering the cache-first worker from `vite dev`
+// permanently hijacks localhost:5173 — Vite's default port, shared with every
+// other project's dev server — serving this app's cached shell in its place.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
